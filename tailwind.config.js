@@ -13,7 +13,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['"Plus Jakarta Sans"', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 // Doff Aesthetic & Muted Palette
@@ -21,6 +21,8 @@ export default {
                     sand: '#F7F5F0',       // Warm light background
                     canvas: '#FAF8F5',     // Creamy base
                     charcoal: '#2C302E',   // Soft dark text (matte)
+                    dark: '#1E2320',       // Deep matte botanical charcoal (High Contrast Sidebar)
+                    darker: '#161917',     // Darkest matte charcoal for border/subtle depth
                     muted: '#6B705C',      // Muted sage text / secondary
                     border: '#E8E5DE',     // Subtle border
                 },
@@ -28,9 +30,13 @@ export default {
                     50: '#F4F7F4',
                     100: '#E4ECE3',
                     200: '#CADAC8',
+                    300: '#AEC4AC',
+                    400: '#94B091',
                     500: '#7E9A7B',        // Muted natural olive-sage
                     600: '#658062',
                     700: '#4F654D',
+                    800: '#3D4F3B',
+                    900: '#2A3629',
                 },
                 blush: {
                     50: '#FDF7F7',
