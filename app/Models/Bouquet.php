@@ -22,6 +22,7 @@ class Bouquet extends Model
         'photo_url',
         'is_ready_stock',
         'is_active',
+        'is_featured',
     ];
 
     protected $casts = [
@@ -29,6 +30,7 @@ class Bouquet extends Model
         'estimated_cogs' => 'decimal:2',
         'is_ready_stock' => 'boolean',
         'is_active' => 'boolean',
+        'is_featured' => 'boolean',
     ];
 
     public function occasions(): BelongsToMany
