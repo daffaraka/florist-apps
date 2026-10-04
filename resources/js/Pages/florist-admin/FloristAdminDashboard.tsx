@@ -1,9 +1,9 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
 import FloristAdminLayout from '@/Layouts/FloristAdminLayout';
-import FloristKpiCards from './components/florist-kpi-cards';
-import FloristInfographicsCharts from './components/florist-infographics-charts';
-import FloristLowStockAlertTable from './components/florist-low-stock-alert-table';
+import FloristKpiCards from './components/FloristKpiCards';
+import FloristInfographicsCharts from './components/FloristInfographicsCharts';
+import FloristLowStockAlertTable from './components/FloristLowStockAlertTable';
 
 interface DashboardProps {
     metrics: {

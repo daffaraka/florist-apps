@@ -66,7 +66,7 @@ class FloristDashboardController extends Controller
             ->limit(4)
             ->get();
 
-        return Inertia::render('florist-admin/florist-admin-dashboard', [
+        return Inertia::render('florist-admin/FloristAdminDashboard', [
             'metrics' => [
                 'total_revenue' => (float) $totalRevenue,
                 'total_net_profit' => (float) $totalNetProfit,

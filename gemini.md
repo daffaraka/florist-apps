@@ -1,13 +1,19 @@
 # Coding Conventions & Project Rules
 
 ## 1. Format Penamaan File React JS
-- Format path & nama file React JS harus mengikuti pola:
-  `folder-modul/namamodul-function`
-  - Contoh:
-    - `bouquet-catalog/bouquet-catalog-list.tsx`
-    - `flower-inventory/flower-inventory-table.tsx`
-    - `checkout-flow/checkout-payment-summary.tsx`
-    - `ai-recommender/ai-recommender-form.tsx`
+- Format path & nama file React JS harus mengikuti pola **PascalCase**:
+  `folder-modul/NamaModulFunction.tsx`
+  - Contoh halaman modul:
+    - `bouquet-catalog/BouquetCatalogList.tsx`
+    - `flower-inventory/FlowerInventoryTable.tsx`
+    - `checkout-flow/CheckoutPaymentSummary.tsx`
+    - `ai-recommender/AiRecommenderForm.tsx`
+    - `florist-admin/FloristAdminDashboard.tsx`
+  - Untuk komponen shell/layout (seperti sidebar, header, alert, dll), gunakan penamaan langsung yang bersih tanpa prefix modul (misal tanpa kata `Florist`):
+    - `Layouts/components/AdminSidebar.tsx`
+    - `Layouts/components/AdminHeader.tsx`
+    - `Layouts/components/AlertBanner.tsx`
+
 
 ## 2. Prinsip Clean Code
 - Terapkan prinsip Single Responsibility Principle (SRP) dan DRY (Don't Repeat Yourself).
