@@ -28,8 +28,19 @@
 ## 4. UI/UX & Design Rules
 1. **Icon Style**: Gunakan icon dengan gaya **duo-tone** dan **minimalis** (clean lines, tidak ramai).
 2. **Icon Usage**: **Kurangi penggunaan icon** secara berlebihan — gunakan icon hanya jika benar-benar memberikan nilai fungsional / navigasi penting, jangan gunakan sebagai pemanis di setiap tombol/teks.
-3. **Mobile-First / Mobile Friendly**: Prioritaskan pengalaman pengguna pada layar smartphone (touch target tombol besar, padding nyaman, responsive layout, bottom tab navigation untuk admin).
-4. **Color Palette**: Gunakan palet warna **doff aesthetic** (warna matte/muted, pastel hangat, sage/olive lembut, terracotta/blush doff, charcoal lembut — hindari warna glossy/neon menyala).
+3. **Standar Skala Ukuran (Small - XXXL)**:
+   - Tetapkan dan patuhi skala ukuran standar (`sm` hingga `3xl`) secara konsisten untuk tipografi, padding, margin, radius sudut (*border-radius*), dan elemen dimensi:
+     - `sm` (Small): Elemen mikro, sub-label, teks bantuan kecil, badge ringkas.
+     - `md` (Medium): Standar body text, form input reguler, tombol default.
+     - `lg` (Large): Heading kartu, tombol utama (*prominent CTA*), modal dialog header.
+     - `xl` (Extra Large): Sub-heading halaman, kartu metrik KPI utama.
+     - `xxl` / `2xl` (Double Extra Large): Judul halaman modul utama, ringkasan analitik besar.
+     - `xxxl` / `3xl` (Triple Extra Large): Display angka utama, hero banner, highlight grafis.
+4. **Distribusi Spasi & Pemanfaatan Blank Space (No Dead Empty Space)**:
+   - Seluruh konten dan tata letak (*layout*) **wajib menggunakan pengaturan blank space / whitespace yang terencana dan harmonis** sehingga tidak ada area kosong yang canggung (*awkward empty gaps* / kekosongan yang tidak bernilai).
+   - Manfaatkan grid adaptif, pembagian kolom responsif, atau informasi penunjang kontekstual (seperti kartu ringkasan, empty-state informatif dengan ilustrasi/panduan, atau visualisasi metrik) agar seluruh bentang layar terisi secara seimbang, proporsional, dan estetik.
+5. **Mobile-First / Mobile Friendly**: Prioritaskan pengalaman pengguna pada layar smartphone (touch target tombol besar, padding nyaman, responsive layout, bottom tab navigation untuk admin).
+6. **Color Palette**: Gunakan palet warna **doff aesthetic** (warna matte/muted, pastel hangat, sage/olive lembut, terracotta/blush doff, charcoal lembut — hindari warna glossy/neon menyala).
 
 ## 5. Dashboard Layout & Modular Component Rules
 1. **Modularitas Komponen Dashboard**:
@@ -41,5 +52,9 @@
      - Di **Mobile**: Muncul sebagai off-canvas drawer / overlay sheet saat toggle ditekan.
 3. **Active Route Highlight**:
    - Menu di sidebar **wajib memiliki highlight visual yang jelas** untuk route/halaman yang sedang aktif (menggunakan latar belakang aksen doff, teks kontras, dan border indikator aktif) sehingga pengguna selalu mengetahui posisi navigasi mereka secara instan.
+
+## 6. Format File Rancangan / Documentation Rules
+- Setiap file markdown yang berisi rancangan, spek, atau panduan internal **WAJIB diakhiri dengan akhiran `.antigravity-skills.md`** (misal: `perencanaan-aplikasi-florist-paas.antigravity-skills.md`, `ui-ux-design-system.antigravity-skills.md`).
+- File-file dengan pola `*antigravity-skills*` **WAJIB SELALU di-ignore oleh Git** (terdaftar di `.gitignore`) sehingga tidak ter-commit ke repositori GitHub.
 
 
