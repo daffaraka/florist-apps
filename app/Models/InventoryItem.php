@@ -17,10 +17,12 @@ class InventoryItem extends Model
         'sku',
         'barcode',
         'category',
+        'category_id',
         'color',
         'unit_cost',
         'stock_quantity',
         'unit_measurement',
+        'unit_measurement_id',
         'shelf_life_days',
         'minimum_alert_stock',
         'photo_url',
@@ -31,7 +33,19 @@ class InventoryItem extends Model
         'stock_quantity' => 'decimal:2',
         'shelf_life_days' => 'integer',
         'minimum_alert_stock' => 'integer',
+        'category_id' => 'integer',
+        'unit_measurement_id' => 'integer',
     ];
+
+    public function itemCategory()
+    {
+        return $this->belongsTo(ItemCategory::class, 'category_id');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(UnitMeasurement::class, 'unit_measurement_id');
+    }
 
     public function wastes(): HasMany
     {

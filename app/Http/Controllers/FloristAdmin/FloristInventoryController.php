@@ -21,7 +21,13 @@ class FloristInventoryController extends Controller
         $search = $request->query('search');
 
         $items = InventoryItem::query()
-            ->when($category, fn($q) => $q->where('category', $category))
+            ->with(['itemCategory', 'unit'])
+            ->when($category, function ($q) use ($category) {
+                $q->where(function ($sub) use ($category) {
+                    $sub->where('category', $category)
+                        ->orWhereHas('itemCategory', fn($c) => $c->where('slug', $category));
+                });
+            })
             ->when($search, fn($q) => $q->where(function($query) use ($search) {
                 $query->where('name', 'like', "%{$search}%")
                       ->orWhere('sku', 'like', "%{$search}%")
@@ -31,12 +37,31 @@ class FloristInventoryController extends Controller
             ->paginate(12)
             ->withQueryString();
 
-        return Inertia::render('florist-admin/florist-inventory-list', [
+        $categories = \App\Models\ItemCategory::orderByDesc('is_default')->orderBy('name')->get();
+        $units = \App\Models\UnitMeasurement::orderByDesc('is_default')->orderBy('name')->get();
+
+        return Inertia::render('flower-inventory/FlowerInventoryTable', [
             'items' => $items,
+            'categories' => $categories,
+            'units' => $units,
             'filters' => [
                 'category' => $category,
                 'search' => $search,
             ],
+        ]);
+    }
+
+    /**
+     * Form view tambah bahan baku baru
+     */
+    public function create(): Response
+    {
+        $categories = \App\Models\ItemCategory::orderByDesc('is_default')->orderBy('name')->get();
+        $units = \App\Models\UnitMeasurement::orderByDesc('is_default')->orderBy('name')->get();
+
+        return Inertia::render('flower-inventory/FlowerInventoryCreate', [
+            'categories' => $categories,
+            'units' => $units,
         ]);
     }
 
@@ -49,18 +74,39 @@ class FloristInventoryController extends Controller
             'name' => 'required|string|max:255',
             'sku' => 'nullable|string|max:50',
             'barcode' => 'nullable|string|max:50',
-            'category' => 'required|in:fresh_flower,wrapping_paper,ribbon,accessory,greeting_card',
+            'category_id' => 'nullable|exists:item_categories,id',
+            'category' => 'nullable|string|max:50',
             'color' => 'nullable|string|max:50',
             'unit_cost' => 'required|numeric|min:0',
             'stock_quantity' => 'required|numeric|min:0',
-            'unit_measurement' => 'required|string|max:20',
+            'unit_measurement_id' => 'nullable|exists:unit_measurements,id',
+            'unit_measurement' => 'nullable|string|max:50',
             'shelf_life_days' => 'nullable|integer|min:1',
             'minimum_alert_stock' => 'required|integer|min:1',
         ]);
 
+        // Auto sync slug / symbol fallback
+        if (!empty($validated['category_id']) && empty($validated['category'])) {
+            $cat = \App\Models\ItemCategory::find($validated['category_id']);
+            $validated['category'] = $cat?->slug ?? 'fresh_flower';
+        }
+
+        if (!empty($validated['unit_measurement_id']) && empty($validated['unit_measurement'])) {
+            $unit = \App\Models\UnitMeasurement::find($validated['unit_measurement_id']);
+            $validated['unit_measurement'] = $unit?->symbol ?? 'pcs';
+        }
+
+        // Default fallbacks if none provided
+        if (empty($validated['category'])) {
+            $validated['category'] = 'fresh_flower';
+        }
+        if (empty($validated['unit_measurement'])) {
+            $validated['unit_measurement'] = 'pcs';
+        }
+
         InventoryItem::create($validated);
 
-        return back()->with('success', 'Bahan inventori berhasil ditambahkan.');
+        return redirect()->route('admin.inventory.index')->with('success', 'Bahan inventori berhasil ditambahkan.');
     }
 
     /**
