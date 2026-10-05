@@ -6,11 +6,14 @@ import {
     PackageOpen, 
     CalendarClock, 
     WalletCards, 
+    Layers,
+    Tag,
+    Scale,
     PanelLeftClose,
     PanelLeft
 } from 'lucide-react';
 import SidebarHeader from './SidebarHeader';
-import SidebarNavList from './SidebarNavList';
+import SidebarNavList, { SidebarNavItem } from './SidebarNavList';
 import SidebarUserProfile from './SidebarUserProfile';
 
 interface FloristSidebarProps {
@@ -21,12 +24,21 @@ interface FloristSidebarProps {
 export default function AdminSidebar({ isCollapsed, onToggle }: FloristSidebarProps) {
     const { url } = usePage();
 
-    const navItems = [
+    const navItems: SidebarNavItem[] = [
         { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
         { name: 'Inventori & Bahan', href: '/admin/inventory', icon: Flower2 },
         { name: 'Katalog Bouket', href: '/admin/bouquets', icon: PackageOpen },
         { name: 'Jadwal Pesanan', href: '/admin/orders', icon: CalendarClock },
         { name: 'Keuangan & Laba', href: '/admin/finance', icon: WalletCards },
+        { 
+            name: 'Master Data', 
+            href: '/admin/master-data', 
+            icon: Layers,
+            subItems: [
+                { name: 'Kategori Bahan', href: '/admin/master-data?tab=categories', icon: Tag },
+                { name: 'Satuan Pengukuran', href: '/admin/master-data?tab=units', icon: Scale },
+            ],
+        },
     ];
 
     return (

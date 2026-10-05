@@ -216,5 +216,7 @@ class DatabaseSeeder extends Seeder
             'unit_cogs_price' => $b1->estimated_cogs,
             'subtotal_price' => $b1->selling_price,
         ]);
+
+        $this->call(MasterDataSeeder::class);
     }
 }
