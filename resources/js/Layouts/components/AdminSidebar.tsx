@@ -9,6 +9,7 @@ import {
     Layers,
     Tag,
     Scale,
+    Star,
     PanelLeftClose,
     PanelLeft
 } from 'lucide-react';
@@ -30,6 +31,7 @@ export default function AdminSidebar({ isCollapsed, onToggle }: FloristSidebarPr
         { name: 'Katalog Bouket', href: '/admin/bouquets', icon: PackageOpen },
         { name: 'Jadwal Pesanan', href: '/admin/orders', icon: CalendarClock },
         { name: 'Keuangan & Laba', href: '/admin/finance', icon: WalletCards },
+        { name: 'Ulasan & Testimoni', href: '/admin/reviews', icon: Star },
         { 
             name: 'Master Data', 
             href: '/admin/master-data', 

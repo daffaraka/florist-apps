@@ -13,7 +13,9 @@ trait BelongsToTenant
     {
         // Global scope: Hanya mengambil data milik tenant aktif jika tenant context terpasang
         static::addGlobalScope('tenant_isolation', function (Builder $builder) {
-            $currentTenantId = app()->bound('current_tenant_id') ? app('current_tenant_id') : null;
+            $currentTenantId = app()->bound('current_tenant_id')
+                ? app('current_tenant_id')
+                : (auth()->check() ? auth()->user()->tenant_id : null);
 
             if ($currentTenantId) {
                 $builder->where($builder->getModel()->getTable() . '.tenant_id', $currentTenantId);
@@ -22,7 +24,9 @@ trait BelongsToTenant
 
         // Event saat membuat data baru: otomatis pasang tenant_id
         static::creating(function (Model $model) {
-            $currentTenantId = app()->bound('current_tenant_id') ? app('current_tenant_id') : null;
+            $currentTenantId = app()->bound('current_tenant_id')
+                ? app('current_tenant_id')
+                : (auth()->check() ? auth()->user()->tenant_id : null);
 
             if ($currentTenantId && empty($model->tenant_id)) {
                 $model->tenant_id = $currentTenantId;

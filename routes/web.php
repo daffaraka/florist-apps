@@ -5,10 +5,17 @@ use App\Http\Controllers\FloristAdmin\FloristDashboardController;
 use App\Http\Controllers\FloristAdmin\FloristFinanceController;
 use App\Http\Controllers\FloristAdmin\FloristInventoryController;
 use App\Http\Controllers\FloristAdmin\FloristOrderController;
+use App\Http\Controllers\FloristAdmin\FloristReviewController;
+use App\Http\Controllers\FloristAdmin\MasterDataController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Storefront\StorefrontCatalogController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+// 1. Etalase Publik Customer (Storefront Semi E-Commerce)
+Route::get('/store', [StorefrontCatalogController::class, 'index'])->name('storefront.index');
+Route::post('/store/reviews', [StorefrontCatalogController::class, 'submitCustomerReview'])->name('storefront.reviews.submit');
 
 Route::get('/', function () {
     return redirect()->route('admin.dashboard');
@@ -47,10 +54,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/master-data/categories/{category}', [\App\Http\Controllers\FloristAdmin\MasterDataController::class, 'destroyCategory'])->name('master-data.categories.destroy');
     Route::post('/master-data/quick-category', [\App\Http\Controllers\FloristAdmin\MasterDataController::class, 'quickCategory'])->name('master-data.quick-category');
 
-    Route::post('/master-data/units', [\App\Http\Controllers\FloristAdmin\MasterDataController::class, 'storeUnit'])->name('master-data.units.store');
-    Route::put('/master-data/units/{unit}', [\App\Http\Controllers\FloristAdmin\MasterDataController::class, 'updateUnit'])->name('master-data.units.update');
-    Route::delete('/master-data/units/{unit}', [\App\Http\Controllers\FloristAdmin\MasterDataController::class, 'destroyUnit'])->name('master-data.units.destroy');
-    Route::post('/master-data/quick-unit', [\App\Http\Controllers\FloristAdmin\MasterDataController::class, 'quickUnit'])->name('master-data.quick-unit');
+    Route::post('/master-data/units', [MasterDataController::class, 'storeUnit'])->name('master-data.units.store');
+    Route::put('/master-data/units/{unit}', [MasterDataController::class, 'updateUnit'])->name('master-data.units.update');
+    Route::delete('/master-data/units/{unit}', [MasterDataController::class, 'destroyUnit'])->name('master-data.units.destroy');
+    Route::post('/master-data/quick-unit', [MasterDataController::class, 'quickUnit'])->name('master-data.quick-unit');
+
+    // 7. Manajemen Ulasan & Testimoni Pelanggan
+    Route::get('/reviews', [FloristReviewController::class, 'index'])->name('reviews.index');
+    Route::post('/reviews', [FloristReviewController::class, 'store'])->name('reviews.store');
+    Route::put('/reviews/{review}', [FloristReviewController::class, 'update'])->name('reviews.update');
+    Route::post('/reviews/{review}/toggle-published', [FloristReviewController::class, 'togglePublished'])->name('reviews.toggle-published');
+    Route::post('/reviews/{review}/toggle-featured', [FloristReviewController::class, 'toggleFeatured'])->name('reviews.toggle-featured');
+    Route::delete('/reviews/{review}', [FloristReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 Route::middleware('auth')->group(function () {

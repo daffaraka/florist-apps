@@ -156,8 +156,10 @@ class DatabaseSeeder extends Seeder
             'slug' => 'classic-crimson-romance',
             'description' => 'Rangkaian 10 tangkai mawar merah Holland dipadu aksen baby breath lembut dan wrapping sage doff bernuansa hangat.',
             'selling_price' => 285000,
+            'photo_url' => 'https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=800&q=80',
             'is_ready_stock' => true,
             'is_active' => true,
+            'is_featured' => true,
         ]);
         $b1->occasions()->attach([$occasionModels['romantis']->id, $occasionModels['birthday']->id]);
 
@@ -175,8 +177,10 @@ class DatabaseSeeder extends Seeder
             'slug' => 'whispering-white-sage',
             'description' => 'Paduan anggun mawar putih Ecuador dengan rimbunnya daun eucalyptus dan sentuhan baby breath puitis.',
             'selling_price' => 245000,
+            'photo_url' => 'https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&w=800&q=80',
             'is_ready_stock' => true,
             'is_active' => true,
+            'is_featured' => true,
         ]);
         $b2->occasions()->attach([$occasionModels['wisuda']->id, $occasionModels['hari-ibu']->id]);
 
@@ -218,5 +222,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(MasterDataSeeder::class);
+        $this->call(ReviewSeeder::class);
     }
 }

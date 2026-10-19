@@ -48,6 +48,11 @@ class Bouquet extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
     /**
      * Hitung ulang estimasi HPP (COGS) dari resep bahan baku
      */
